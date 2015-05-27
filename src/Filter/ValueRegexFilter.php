@@ -12,7 +12,7 @@ class ValueRegexFilter extends KeyRegexFilter implements FilterInterface
      */
     public function filter($data)
     {
-        $callback = function ($value, $key) {
+        $callback = function ($value) {
             if (is_string($value)) {
                 return preg_match($this->regex, $value);
             }
