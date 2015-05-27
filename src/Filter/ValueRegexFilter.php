@@ -12,16 +12,14 @@ class ValueRegexFilter extends KeyRegexFilter implements FilterInterface
      */
     public function filter($data)
     {
-        $callback = function ($value) {
+        $regex = $this->regex;
+
+        $callback = function ($value) use ($regex) {
             if (is_string($value)) {
-                return preg_match($this->regex, $value);
+                return preg_match($regex, $value);
             }
         };
 
-        return array_filter(
-            $data,
-            $callback,
-            ARRAY_FILTER_USE_BOTH
-        );
+        return array_filter($data, $callback);
     }
 }

@@ -41,14 +41,16 @@ class KeyRegexFilter implements FilterInterface
      */
     public function filter($data)
     {
-        $callback = function ($key) {
-            return preg_match($this->regex, $key);
+        $regex = $this->regex;
+
+        $callback = function ($item, $key) use ($regex, &$data) {
+            if (!preg_match($regex, $key)) {
+                unset($data[$key]);
+            }
         };
 
-        return array_filter(
-            $data,
-            $callback,
-            ARRAY_FILTER_USE_KEY
-        );
+        array_walk($data, $callback);
+
+        return $data;
     }
 }
