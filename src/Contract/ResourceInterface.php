@@ -1,6 +1,8 @@
 <?php
 
-namespace Cekurte\Environment\Resource;
+namespace Cekurte\Environment\Contract;
+
+use Cekurte\Environment\Exception\ResourceException;
 
 interface ResourceInterface
 {
@@ -22,6 +24,8 @@ interface ResourceInterface
 
     /**
      * @return mixed
+     *
+     * @throws ResourceException
      */
     public function process();
 }

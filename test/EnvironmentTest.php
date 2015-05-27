@@ -3,6 +3,8 @@
 namespace Cekurte\Environment\Test;
 
 use Cekurte\Environment\Environment;
+use Cekurte\Environment\Filter\KeyRegexFilter;
+use Cekurte\Environment\Filter\ValueRegexFilter;
 use Cekurte\Environment\Test\EnvironmentTestCase;
 
 class EnvironmentTest extends EnvironmentTestCase
@@ -208,5 +210,70 @@ class EnvironmentTest extends EnvironmentTestCase
 
         $_SERVER['_SERVER'] = 'true';
         $this->assertEquals(true, Environment::get('_SERVER'));
+    }
+
+    public function testGetAll()
+    {
+        $_ENV['_ENV'] = 'true';
+        $_SERVER['_SERVER'] = 'true';
+
+        $this->assertTrue(is_array(Environment::getAll()));
+    }
+
+    public function testGetAllWithKeyRegexFilter()
+    {
+        $_ENV['_ENV'] = 'true';
+        $_ENV['FAKE'] = 'fake';
+        $_SERVER['_SERVER'] = 'true';
+
+        $result = Environment::getAll([
+            new KeyRegexFilter('/_ENV/'),
+        ]);
+
+        $this->assertTrue(is_array($result));
+
+        $this->assertEquals(true, $result['_ENV']);
+    }
+
+    public function testGetAllWithValueRegexFilter()
+    {
+        $_ENV['_ENV'] = 'true';
+        $_ENV['FAKE'] = 'fake';
+        $_SERVER['_SERVER'] = 'true';
+
+        $result = Environment::getAll([
+            new ValueRegexFilter('/true/'),
+        ]);
+
+        $this->assertTrue(is_array($result));
+
+        $this->assertEquals(true, $result['_ENV']);
+        $this->assertEquals(true, $result['_SERVER']);
+    }
+
+    public function testGetAllWithKeyAndValueRegexFilter()
+    {
+        $_ENV['_ENV'] = 'true';
+        $_ENV['FAKE'] = 'fake';
+        $_SERVER['_SERVER'] = 'true';
+
+        $result = Environment::getAll([
+            new KeyRegexFilter('/FAKE/'),
+            new ValueRegexFilter('/fake/'),
+        ]);
+
+        $this->assertTrue(is_array($result));
+
+        $this->assertEquals('fake', $result['FAKE']);
+    }
+
+    /**
+     * @expectedException \Cekurte\Environment\Exception\FilterException
+     */
+    public function testGetAllFilterException()
+    {
+        Environment::getAll([
+            new \ArrayObject(),
+        ]);
     }
 }

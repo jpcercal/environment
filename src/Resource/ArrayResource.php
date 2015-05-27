@@ -2,9 +2,10 @@
 
 namespace Cekurte\Environment\Resource;
 
+use Cekurte\Environment\Contract\ResourceInterface;
+use Cekurte\Environment\Exception\ResourceException;
 use Cekurte\Environment\Resource\AbstractResource;
 use Cekurte\Environment\Resource\Resource;
-use Cekurte\Environment\Resource\ResourceInterface;
 
 class ArrayResource extends AbstractResource implements ResourceInterface
 {
@@ -47,18 +48,18 @@ class ArrayResource extends AbstractResource implements ResourceInterface
     }
 
     /**
-     * Handle error and throw a new UnexpectedValueException.
+     * Handle error and throw a new ResourceException.
      *
      * @param  int    $type
      * @param  string $message
      * @param  string $file
      * @param  int    $line
      *
-     * @throws \UnexpectedValueException
+     * @throws ResourceException
      */
     protected function handleError($type, $message, $file, $line)
     {
-        throw new \UnexpectedValueException(sprintf(
+        throw new ResourceException(sprintf(
             '%s: "%s" in %s on line %d',
             $type,
             $message,
@@ -167,7 +168,7 @@ class ArrayResource extends AbstractResource implements ResourceInterface
             !isset($resource[0])  ||
             $resource[0] !== '['  ||
             substr($resource, strlen($resource) - 1) !== ']') {
-            throw new \RuntimeException('The resource type not is a array value');
+            throw new ResourceException('The resource type is not an array value.');
         }
 
         $data = $this->parseArray($resource);
