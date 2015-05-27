@@ -3,6 +3,7 @@
 namespace Cekurte\Environment\Filter;
 
 use Cekurte\Environment\Contract\FilterInterface;
+use Cekurte\Environment\Exception\FilterException;
 
 class KeyRegexFilter implements FilterInterface
 {
@@ -12,10 +13,26 @@ class KeyRegexFilter implements FilterInterface
     protected $regex;
 
     /**
-     * @param string $regex
+     * @param  string $regex
+     *
+     * @throws FilterException
      */
     public function __construct($regex)
     {
+        set_error_handler(function ($type, $message, $file, $line) {
+            throw new FilterException(sprintf(
+                '%s: "%s" in %s on line %d',
+                $type,
+                $message,
+                $file,
+                $line
+            ));
+        });
+
+        preg_match($regex, null);
+
+        restore_error_handler();
+
         $this->regex = $regex;
     }
 
