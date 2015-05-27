@@ -1,0 +1,29 @@
+languages:
+  PHP: true
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - php
+  fixme:
+    enabled: true
+  phpcodesniffer:
+    enabled: true
+  phpmd:
+    enabled: true
+ratings:
+   paths:
+     - src/**/*.php
+exclude_paths:
+  - build/
+  - test/
+  - vendor/
+  - .codeclimate.yml
+  - .gitignore
+  - .travis.yml
+  - composer.json
+  - composer.lock
+  - LICENCE.md
+  - phpunit.xml.dist
+  - README.md
