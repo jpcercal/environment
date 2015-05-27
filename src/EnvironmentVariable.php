@@ -102,7 +102,7 @@ class EnvironmentVariable
             $vars = $filter->filter($vars);
         }
 
-        $callback = function($rawValue) {
+        $callback = function ($rawValue) {
             return $this->getValue($rawValue);
         };
 
