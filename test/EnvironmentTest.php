@@ -3,8 +3,9 @@
 namespace Cekurte\Environment\Test;
 
 use Cekurte\Environment\Environment;
+use Cekurte\Tdd\ReflectionTestCase;
 
-class EnvironmentTest extends \PHPUnit_Framework_TestCase
+class EnvironmentTest extends ReflectionTestCase
 {
     public function getDataProviderResourceTypeNull()
     {
@@ -262,6 +263,16 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertFalse($reflection->getConstructor()->isPublic());
+    }
+
+    public function testConstructAccessWithMock()
+    {
+        $mock = $this->getMockBuilder('\\Cekurte\\Environment\\Environment')
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        $this->invokeMethod($mock, '__construct');
     }
 
     /**
