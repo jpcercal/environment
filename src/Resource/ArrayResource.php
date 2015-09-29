@@ -3,6 +3,7 @@
 namespace Cekurte\Environment\Resource;
 
 use Cekurte\Environment\Resource\AbstractResource;
+use Cekurte\Environment\Resource\Resource;
 use Cekurte\Environment\Resource\ResourceInterface;
 
 class ArrayResource extends AbstractResource implements ResourceInterface
@@ -21,18 +22,24 @@ class ArrayResource extends AbstractResource implements ResourceInterface
             throw new \RuntimeException('The resource type not is a array value');
         }
 
-        $data = explode(',', trim(substr($resource, 1, -1)));
+        $data = @eval(sprintf('return %s;', $this->getResource()));
 
-        $haystack = ['"', "'"];
+        $lastError = error_get_last();
 
-        return array_map(function ($item) use ($haystack) {
-            if (isset($item[0]) && in_array($item[0], $haystack)) {
-                $item = substr($item, 1);
-            }
+        if (!empty($lastError)) {
+            throw new \UnexpectedValueException(sprintf(
+                '%s: %s in %s on line %d',
+                $lastError['type'],
+                $lastError['message'],
+                $lastError['file'],
+                $lastError['line']
+            ));
+        }
 
-            if (in_array(substr($item, strlen($item) - 1), $haystack)) {
-                $item = substr($item, 0, -1);
-            }
-        }, $data);
+        array_walk_recursive($data, function (&$item) {
+            $item = (new Resource($item))->process();
+        });
+
+        return $data;
     }
 }
