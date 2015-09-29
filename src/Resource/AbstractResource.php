@@ -24,7 +24,7 @@ abstract class AbstractResource implements ResourceInterface
      */
     public function setResource($resource)
     {
-        $this->resource = $resource;
+        $this->resource = trim($resource);
 
         return $this;
     }

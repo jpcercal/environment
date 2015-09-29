@@ -18,6 +18,6 @@ class NumericResource extends AbstractResource implements ResourceInterface
             throw new \RuntimeException('The resource type not is a numeric value');
         }
 
-        return is_int($resource) ? (int) $resource : (float) $resource;
+        return $resource + 0;
     }
 }
