@@ -47,11 +47,128 @@ Actually are available the following resources to process your environment varia
 - [NumericResource](https://github.com/jpcercal/environment/blob/master/src/Resource/NumericResource.php)
 - [UnknownResource](https://github.com/jpcercal/environment/blob/master/src/Resource/UnknownResource.php)
 
-If you liked of this library, give me a *star* **=)**.
+### Examples
+
+In this section you can see the examples to all resource types.
+
+#### ArrayResource
+
+The array resource parse a value from environment variable that is a string to the array php data type. Supposing that there exists a environment variable named "ENV_ARRAY" with the following value **[1,2,3,"key"=>"value"]**.
+
+```bash
+export ENV_ARRAY=[1,2,3,"key"=>"value"]
+```
+
+When you read this environment variable with our library, then it will convert the data to the correct data type (in this case to array) using the [ArrayResource](https://github.com/jpcercal/environment/blob/master/src/Resource/ArrayResource.php) class.
+
+```php
+<?php
+
+// array(4) {
+//   [0]=> int(1)
+//   [1]=> int(2)
+//   [2]=> int(3)
+//   ["key"]=> string(5) "value"
+// }
+var_dump(Cekurte\Environment\Environment::get("ENV_ARRAY"));
+
+```
+
+#### BooleanResource
+
+The boolean resource parse a value from environment variable that is a string to the boolean php data type. Supposing that there exists a environment variable named "ENV_BOOL" with the following value **true**.
+
+```bash
+export ENV_BOOL=true
+```
+
+When you read this environment variable with our library, then it will convert the data to the correct data type (in this case to boolean) using the [BooleanResource](https://github.com/jpcercal/environment/blob/master/src/Resource/BooleanResource.php) class.
+
+```php
+<?php
+
+// bool(true)
+var_dump(Cekurte\Environment\Environment::get("ENV_BOOL"));
+
+```
+
+#### JsonResource
+
+The json resource parse a value from environment variable that is a string to the array php data type. Supposing that there exists a environment variable named "ENV_JSON" with the following value **{"key":"value"}**.
+
+```bash
+export ENV_JSON={"key":"value"}
+```
+
+When you read this environment variable with our library, then it will convert the data to the correct data type (in this case to array) using the [JsonResource](https://github.com/jpcercal/environment/blob/master/src/Resource/JsonResource.php) class.
+
+```php
+<?php
+
+// array(1) {
+//   ["key"]=> string(5) "value"
+// }
+var_dump(Cekurte\Environment\Environment::get("ENV_JSON"));
+
+```
+
+#### NullResource
+
+The null resource parse a value from environment variable that is a string to the null php data type. Supposing that there exists a environment variable named "ENV_NULL" with the following value **null**.
+
+```bash
+export ENV_NULL=null
+```
+
+When you read this environment variable with our library, then it will convert the data to the correct data type (in this case to null) using the [NullResource](https://github.com/jpcercal/environment/blob/master/src/Resource/NullResource.php) class.
+
+```php
+<?php
+
+// NULL
+var_dump(Cekurte\Environment\Environment::get("ENV_NULL"));
+```
+
+#### NumericResource
+
+The numeric resource parse a value from environment variable that is a string to the numeric php data type (a integer or a float). Supposing that there exists a environment variable named "ENV_NUMERIC" with the following value **123**.
+
+```bash
+export ENV_NUMERIC=123
+```
+
+When you read this environment variable with our library, then it will convert the data to the correct data type (in this case to int) using the [NumericResource](https://github.com/jpcercal/environment/blob/master/src/Resource/NumericResource.php) class.
+
+```php
+<?php
+
+// int(123)
+var_dump(Cekurte\Environment\Environment::get("ENV_NUMERIC"));
+```
+
+#### UnknownResource
+
+The unknown resource no parse the values from environment variable and is used to get values when all resource types can not parse the data. Supposing that there exists a environment variable named "ENV_UNKNOWN" with the following value **"unknown"**.
+
+```bash
+export ENV_UNKNOWN="unknown"
+```
+
+When you read this environment variable with our library, then it will get the raw value using the [UnknownResource](https://github.com/jpcercal/environment/blob/master/src/Resource/UnknownResource.php) class.
+
+```php
+<?php
+
+// string(7) "unknown"
+var_dump(Cekurte\Environment\Environment::get("ENV_UNKNOWN"));
+```
+
+**If you liked of this library, give me a *star =)*.**
 
 Contributing
 ------------
 
+1. Give me a star **=)**
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Make your changes
