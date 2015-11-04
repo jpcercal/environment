@@ -418,4 +418,16 @@ class EnvironmentTest extends ReflectionTestCase
 
         $this->assertEquals($value, Environment::get($key));
     }
+
+    public function testGetEnvironmentVariable()
+    {
+        putenv('putenv=true');
+        $this->assertEquals(true, Environment::get('putenv'));
+
+        $_ENV['_ENV'] = 'true';
+        $this->assertEquals(true, Environment::get('_ENV'));
+
+        $_SERVER['_SERVER'] = 'true';
+        $this->assertEquals(true, Environment::get('_SERVER'));
+    }
 }
