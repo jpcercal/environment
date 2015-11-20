@@ -27,13 +27,28 @@ And now, use our library to get values and increase the power of your environmen
 ```php
 <?php
 
-use Cekurte\Environment\Environment;
+use Cekurte\Environment\env;                 // To get values using a function
+use Cekurte\Environment\Environment;         // To get values using a static class
+use Cekurte\Environment\EnvironmentVariable; // To get values using a object
 
 // ...
 
 $data = Environment::get("YOUR_ENVIRONMENT_KEY");
 
+// Getting default data if your environment variable not exists or not is loaded.
+$data = Environment::get("APP_DEBUG", true);
+
 // ...
+// Other ways to get the values of environment variables.
+
+// Using a object...
+$data = (new EnvironmentVariable())->get("YOUR_ENVIRONMENT_KEY", "defaultValue");
+
+// Using a function...
+$data = env("YOUR_ENVIRONMENT_KEY", "defaultValue");
+
+// Note that if the second parameter is omitted
+// then the return value (if your key not exists) will be null.
 ```
 
 This command will get the value of the environment variable and will convert values to respective php data type.
