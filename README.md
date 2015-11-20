@@ -20,7 +20,7 @@ composer require cekurte/environment
 
 ## Documentation
 
-Setup your variables to PHP with envput("KEY=VALUE"), or use this library to perform this task [vlucas/phpdotenv](https://github.com/vlucas/phpdotenv) (we recommended you to use this library).
+Setup your variables to PHP with `putenv("KEY=VALUE")` or put your environment variables into OS directly. Additionally you can use this library to perform this task [vlucas/phpdotenv](https://github.com/vlucas/phpdotenv) (we recommend that you use this library).
 
 And now, use our library to get values and increase the power of your environment variables.
 
