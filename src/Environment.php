@@ -2,48 +2,39 @@
 
 namespace Cekurte\Environment;
 
-use Cekurte\Environment\Resource\Resource;
+use Cekurte\Environment\EnvironmentVariable;
 
 class Environment
 {
     /**
-     * Constructor disabled
+     * @var EnvironmentVariable|null
      */
-    private function __construct()
-    {
+    private static $instance;
 
+    /**
+     * @return EnvironmentVariable
+     */
+    private static function getInstance()
+    {
+        if (self::$instance === null) {
+            self::$instance = new EnvironmentVariable();
+        }
+
+        return self::$instance;
     }
 
     /**
-     * Get value from environment
+     * Get value from environment.
      *
      * @static
+     *
      * @param string $key
+     * @param mixed  $defaultValue
      *
      * @return mixed
      */
-    public static function get($key)
+    public static function get($name, $defaultValue = null)
     {
-        return (new Resource(self::getEnvironmentVariable($key)))->process();
-    }
-
-    /**
-     * Search the different places for environment variables and return first value found.
-     *
-     * @param string $name
-     *
-     * @return string
-     */
-    public static function getEnvironmentVariable($name)
-    {
-        switch (true) {
-            case array_key_exists($name, $_ENV):
-                return $_ENV[$name];
-            case array_key_exists($name, $_SERVER):
-                return $_SERVER[$name];
-            default:
-                $value = getenv($name);
-                return $value === false ? null : $value; // switch getenv default to null
-        }
+        return self::getInstance()->get($name, $defaultValue);
     }
 }
