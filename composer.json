@@ -24,7 +24,10 @@
     "autoload": {
         "psr-4": {
             "Cekurte\\Environment\\": "src/"
-        }
+        },
+        "files": [
+            "src/env.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
