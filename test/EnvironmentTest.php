@@ -86,7 +86,9 @@ class EnvironmentTest extends ReflectionTestCase
             ['FAKE_ENV_KEY', '[[]]'],
             ['FAKE_ENV_KEY', '[["val1"], ["val2"]]'],
             ['FAKE_ENV_KEY', '[["val1"], [["val2", false], "false"], ["val3"]]'],
-            ['FAKE_ENV_KEY', '[ ["key1"  =>     "val1    ", -123.00002], [    ["val2"] , 2 ], [ [  [["val3",],]],true], "true"]'],
+            ['FAKE_ENV_KEY', ''
+                             . '[ ["key1"  =>     "val1    ", -123.00002],'
+                             . ' [    ["val2"] , 2 ], [ [  [["val3",],]],true], "true"]'],
         ];
     }
 
@@ -256,25 +258,6 @@ class EnvironmentTest extends ReflectionTestCase
         ];
     }
 
-    public function testConstructDisabled()
-    {
-        $reflection = new \ReflectionClass(
-            '\\Cekurte\\Environment\\Environment'
-        );
-
-        $this->assertFalse($reflection->getConstructor()->isPublic());
-    }
-
-    public function testConstructAccessWithMock()
-    {
-        $mock = $this->getMockBuilder('\\Cekurte\\Environment\\Environment')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-
-        $this->invokeMethod($mock, '__construct');
-    }
-
     /**
      * @dataProvider getDataProviderResourceTypeNull
      */
@@ -417,5 +400,17 @@ class EnvironmentTest extends ReflectionTestCase
         putenv(sprintf('%s=%s', $key, $value));
 
         $this->assertEquals($value, Environment::get($key));
+    }
+
+    public function testGetEnvironmentVariable()
+    {
+        putenv('putenv=true');
+        $this->assertEquals(true, Environment::get('putenv'));
+
+        $_ENV['_ENV'] = 'true';
+        $this->assertEquals(true, Environment::get('_ENV'));
+
+        $_SERVER['_SERVER'] = 'true';
+        $this->assertEquals(true, Environment::get('_SERVER'));
     }
 }

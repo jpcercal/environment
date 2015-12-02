@@ -20,20 +20,35 @@ composer require cekurte/environment
 
 ## Documentation
 
-Setup your variables to PHP with envput("KEY=VALUE"), or use this library to perform this task [vlucas/phpdotenv](https://github.com/vlucas/phpdotenv) (we recommended you to use this library).
+Setup your variables to PHP with `putenv("KEY=VALUE")` or put your environment variables into OS directly. Additionally you can use this library to perform this task [vlucas/phpdotenv](https://github.com/vlucas/phpdotenv) (we recommend that you use this library).
 
 And now, use our library to get values and increase the power of your environment variables.
 
 ```php
 <?php
 
-use Cekurte\Environment\Environment;
+use Cekurte\Environment\env;                 // To get values using a function
+use Cekurte\Environment\Environment;         // To get values using a static class
+use Cekurte\Environment\EnvironmentVariable; // To get values using a object
 
 // ...
 
 $data = Environment::get("YOUR_ENVIRONMENT_KEY");
 
+// Getting default data if your environment variable not exists or not is loaded.
+$data = Environment::get("APP_DEBUG", true);
+
 // ...
+// Other ways to get the values of environment variables.
+
+// Using a object...
+$data = (new EnvironmentVariable())->get("YOUR_ENVIRONMENT_KEY", "defaultValue");
+
+// Using a function...
+$data = env("YOUR_ENVIRONMENT_KEY", "defaultValue");
+
+// Note that if the second parameter is omitted
+// then the return value (if your key not exists) will be null.
 ```
 
 This command will get the value of the environment variable and will convert values to respective php data type.
@@ -53,7 +68,7 @@ In this section you can see the examples to all resource types.
 
 #### ArrayResource
 
-The array resource parse a value from environment variable that is a string to the array php data type. Supposing that there exists a environment variable named "ENV_ARRAY" with the following value **[1,2,3,"key"=>"value"]**.
+The array resource parse a value from environment variable that is a string to the array php data type. Supposing that there exists an environment variable named "ENV_ARRAY" with the following value **[1,2,3,"key"=>"value"]**.
 
 ```bash
 export ENV_ARRAY=[1,2,3,"key"=>"value"]
@@ -76,7 +91,7 @@ var_dump(Cekurte\Environment\Environment::get("ENV_ARRAY"));
 
 #### BooleanResource
 
-The boolean resource parse a value from environment variable that is a string to the boolean php data type. Supposing that there exists a environment variable named "ENV_BOOL" with the following value **true**.
+The boolean resource parse a value from environment variable that is a string to the boolean php data type. Supposing that there exists an environment variable named "ENV_BOOL" with the following value **true**.
 
 ```bash
 export ENV_BOOL=true
@@ -94,7 +109,7 @@ var_dump(Cekurte\Environment\Environment::get("ENV_BOOL"));
 
 #### JsonResource
 
-The json resource parse a value from environment variable that is a string to the array php data type. Supposing that there exists a environment variable named "ENV_JSON" with the following value **{"key":"value"}**.
+The json resource parse a value from environment variable that is a string to the array php data type. Supposing that there exists an environment variable named "ENV_JSON" with the following value **{"key":"value"}**.
 
 ```bash
 export ENV_JSON={"key":"value"}
@@ -114,7 +129,7 @@ var_dump(Cekurte\Environment\Environment::get("ENV_JSON"));
 
 #### NullResource
 
-The null resource parse a value from environment variable that is a string to the null php data type. Supposing that there exists a environment variable named "ENV_NULL" with the following value **null**.
+The null resource parse a value from environment variable that is a string to the null php data type. Supposing that there exists an environment variable named "ENV_NULL" with the following value **null**.
 
 ```bash
 export ENV_NULL=null
@@ -131,7 +146,7 @@ var_dump(Cekurte\Environment\Environment::get("ENV_NULL"));
 
 #### NumericResource
 
-The numeric resource parse a value from environment variable that is a string to the numeric php data type (a integer or a float). Supposing that there exists a environment variable named "ENV_NUMERIC" with the following value **123**.
+The numeric resource parse a value from environment variable that is a string to the numeric php data type (an integer or a float). Supposing that there exists an environment variable named "ENV_NUMERIC" with the following value **123**.
 
 ```bash
 export ENV_NUMERIC=123
@@ -148,7 +163,7 @@ var_dump(Cekurte\Environment\Environment::get("ENV_NUMERIC"));
 
 #### UnknownResource
 
-The unknown resource no parse the values from environment variable and is used to get values when all resource types can not parse the data. Supposing that there exists a environment variable named "ENV_UNKNOWN" with the following value **"unknown"**.
+The unknown resource no parse the values from environment variable and is used to get values when all resource types can not parse the data. Supposing that there exists an environment variable named "ENV_UNKNOWN" with the following value **"unknown"**.
 
 ```bash
 export ENV_UNKNOWN="unknown"
