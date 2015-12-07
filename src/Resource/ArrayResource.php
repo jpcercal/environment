@@ -22,13 +22,25 @@ class ArrayResource extends AbstractResource implements ResourceInterface
             throw new \RuntimeException('The resource type not is a array value');
         }
 
-        $data = @eval(sprintf('return %s;', $this->getResource()));
+        $errorTemplate = '%s: %s in %s on line %d';
+
+        try {
+            $data = @eval(sprintf('return %s;', $this->getResource()));
+        } catch (\ParseError $e) {
+            throw new \UnexpectedValueException(sprintf(
+                $errorTemplate,
+                E_PARSE,
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            ));
+        }
 
         $lastError = error_get_last();
 
         if (!empty($lastError)) {
             throw new \UnexpectedValueException(sprintf(
-                '%s: %s in %s on line %d',
+                $errorTemplate,
                 $lastError['type'],
                 $lastError['message'],
                 $lastError['file'],
