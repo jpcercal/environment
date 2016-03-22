@@ -27,7 +27,7 @@ And now, use our library to get values and increase the power of your environmen
 ```php
 <?php
 
-use Cekurte\Environment\env;                 // To get values using a function
+use function Cekurte\Environment\env;        // To get values using a function (requires php >=5.6)
 use Cekurte\Environment\Environment;         // To get values using a static class
 use Cekurte\Environment\EnvironmentVariable; // To get values using a object
 
