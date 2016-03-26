@@ -1,8 +1,5 @@
 composer.phar
 /vendor
 /build
-
 *.lock
 !composer.lock
-.idea/
-*.sublime-*
