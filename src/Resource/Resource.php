@@ -17,7 +17,7 @@ class Resource extends AbstractResource implements ResourceInterface
 
         $resource = new UnknownResource($rawResource);
 
-        if (in_array($rawResourceLower, ['true', 'false'])) {
+        if (in_array($rawResourceLower, ['false', 'true', 'yes', 'no', 'on', 'off'])) {
             $resource = new BooleanResource($rawResource);
         } elseif ($rawResourceLower === 'null') {
             $resource = new NullResource($rawResource);
