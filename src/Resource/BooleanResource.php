@@ -12,12 +12,16 @@ class BooleanResource extends AbstractResource implements ResourceInterface
      */
     public function process()
     {
-        $resource = strtolower($this->getResource());
+        $resource = filter_var(
+            strtolower($this->getResource()),
+            FILTER_VALIDATE_BOOLEAN,
+            FILTER_NULL_ON_FAILURE
+        );
 
-        if (!in_array($resource, ['false', 'true'])) {
+        if (is_null($resource)) {
             throw new \RuntimeException('The resource type not is a boolean value');
         }
 
-        return $resource === 'false' ? false : true;
+        return $resource;
     }
 }
