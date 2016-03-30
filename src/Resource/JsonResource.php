@@ -25,9 +25,8 @@ class JsonResource extends AbstractResource implements ResourceInterface
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new \RuntimeException(sprintf(
-                'Error occurred while decoding the json string #%d "%s"',
-                json_last_error(),
-                json_last_error_msg()
+                'Error occurred while decoding the json string #%d',
+                json_last_error()
             ));
         }
 

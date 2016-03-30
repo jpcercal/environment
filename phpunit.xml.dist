@@ -4,9 +4,8 @@
     <testsuites>
         <testsuite name="Cekurte Environment">
             <directory>./test/</directory>
-            <exclude>
-                <file phpVersion="5.6" phpVersionOperator=">=">./test/EnvFunctionTest.php</file>
-            </exclude>
+            <exclude>./test/EnvFunctionTest.php</exclude>
+            <file phpVersion="5.6" phpVersionOperator=">=">./test/EnvFunctionTest.php</file>
         </testsuite>
     </testsuites>
 
