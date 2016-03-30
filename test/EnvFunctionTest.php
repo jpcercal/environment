@@ -2,10 +2,10 @@
 
 namespace Cekurte\Environment\Test;
 
-use Cekurte\Environment\Environment;
+use function Cekurte\Environment\env;
 use Cekurte\Environment\Test\EnvironmentTestCase;
 
-class EnvironmentTest extends EnvironmentTestCase
+class EnvironmentFunctionTest extends EnvironmentTestCase
 {
     /**
      * @dataProvider getDataProviderResourceTypeNull
@@ -14,7 +14,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $this->assertNull(Environment::get($key));
+        $this->assertNull(env($key));
     }
 
     /**
@@ -24,7 +24,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $this->assertTrue(Environment::get($key));
+        $this->assertTrue(env($key));
     }
 
     /**
@@ -34,7 +34,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $this->assertTrue(Environment::get($key));
+        $this->assertTrue(env($key));
     }
 
     /**
@@ -44,7 +44,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $this->assertTrue(Environment::get($key));
+        $this->assertTrue(env($key));
     }
 
     /**
@@ -54,7 +54,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $this->assertFalse(Environment::get($key));
+        $this->assertFalse(env($key));
     }
 
     /**
@@ -64,7 +64,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $this->assertFalse(Environment::get($key));
+        $this->assertFalse(env($key));
     }
 
     /**
@@ -74,7 +74,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $this->assertFalse(Environment::get($key));
+        $this->assertFalse(env($key));
     }
 
     /**
@@ -84,7 +84,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $this->assertTrue(is_int(Environment::get($key)));
+        $this->assertTrue(is_int(env($key)));
     }
 
     /**
@@ -94,7 +94,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $this->assertTrue(is_float(Environment::get($key)));
+        $this->assertTrue(is_float(env($key)));
     }
 
     /**
@@ -104,7 +104,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $this->assertTrue(is_array(Environment::get($key)));
+        $this->assertTrue(is_array(env($key)));
     }
 
     /**
@@ -114,7 +114,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $this->assertTrue(is_array(Environment::get($key)));
+        $this->assertTrue(is_array(env($key)));
     }
 
     /**
@@ -124,7 +124,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $data = Environment::get($key);
+        $data = env($key);
 
         foreach ($data[0] as $item) {
             $this->assertTrue(is_bool($item));
@@ -138,7 +138,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $data = Environment::get($key);
+        $data = env($key);
 
         foreach ($data[0] as $item) {
             $this->assertTrue(is_int($item));
@@ -152,7 +152,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $data = Environment::get($key);
+        $data = env($key);
 
         foreach ($data[0] as $item) {
             $this->assertTrue(is_float($item));
@@ -166,7 +166,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $this->assertTrue(is_array(Environment::get($key)));
+        $this->assertTrue(is_array(env($key)));
     }
 
     /**
@@ -176,7 +176,7 @@ class EnvironmentTest extends EnvironmentTestCase
     {
         putenv(sprintf('%s=%s', $key, $value));
 
-        $this->assertEquals($value, Environment::get($key));
+        $this->assertEquals($value, env($key));
     }
 
     /**
@@ -184,29 +184,29 @@ class EnvironmentTest extends EnvironmentTestCase
      */
     public function testGetEnvDefaultData($key, $value)
     {
-        $this->assertEquals($value, Environment::get($key . 'ENVIRONMENT_TEST', $value));
+        $this->assertEquals($value, env($key . 'ENVIRONMENT_FUNCTION_TEST', $value));
     }
 
     public function testGetEnvIgnoringDefaultData()
     {
-        $this->assertTrue(is_null(Environment::get('ENVIRONMENT_TEST')));
+        $this->assertTrue(is_null(env('ENVIRONMENT_FUNCTION_TEST')));
 
-        putenv('ENVIRONMENT_TEST=1');
+        putenv('ENVIRONMENT_FUNCTION_TEST=1');
 
-        $this->assertTrue(is_int(Environment::get('ENVIRONMENT_TEST', 2)));
+        $this->assertTrue(is_int(env('ENVIRONMENT_FUNCTION_TEST', 2)));
 
-        $this->assertEquals(1, Environment::get('ENVIRONMENT_TEST', 2));
+        $this->assertEquals(1, env('ENVIRONMENT_FUNCTION_TEST', 2));
     }
 
     public function testGetEnvironmentVariable()
     {
         putenv('putenv=true');
-        $this->assertEquals(true, Environment::get('putenv'));
+        $this->assertEquals(true, env('putenv'));
 
         $_ENV['_ENV'] = 'true';
-        $this->assertEquals(true, Environment::get('_ENV'));
+        $this->assertEquals(true, env('_ENV'));
 
         $_SERVER['_SERVER'] = 'true';
-        $this->assertEquals(true, Environment::get('_SERVER'));
+        $this->assertEquals(true, env('_SERVER'));
     }
 }
