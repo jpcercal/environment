@@ -5,7 +5,7 @@ namespace Cekurte\Environment\Test;
 use Cekurte\Environment\Environment;
 use Cekurte\Tdd\ReflectionTestCase;
 
-class EnvironmentTestCase extends ReflectionTestCase
+abstract class EnvironmentTestCase extends ReflectionTestCase
 {
     public function getDataProviderResourceTypesReturnDefault()
     {
