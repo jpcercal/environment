@@ -2,7 +2,6 @@
 
 namespace Cekurte\Environment\Test;
 
-use function Cekurte\Environment\env;
 use Cekurte\Environment\Environment;
 use Cekurte\Tdd\ReflectionTestCase;
 
@@ -27,14 +26,6 @@ class EnvTest extends ReflectionTestCase
     public function testGetEnvUsingFunction($key, $value)
     {
         $this->assertEquals($value, \Cekurte\Environment\env($key, $value));
-    }
-
-    /**
-     * @dataProvider getDataProviderResourceTypesReturnDefault
-     */
-    public function testGetEnvUsingFunctionAsAlias($key, $value)
-    {
-        $this->assertEquals($value, env($key, $value));
     }
 
     public function testGetEnvIgnoringDefaultData()
