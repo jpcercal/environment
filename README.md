@@ -1,18 +1,19 @@
 # Environment
 
-[![Build Status](https://img.shields.io/travis/jpcercal/environment/master.svg?style=flat-square)](http://travis-ci.org/jpcercal/environment)
-[![Coverage Status](https://coveralls.io/repos/jpcercal/environment/badge.svg)](https://coveralls.io/r/jpcercal/environment)
-[![Latest Stable Version](https://img.shields.io/packagist/v/cekurte/environment.svg?style=flat-square)](https://packagist.org/packages/cekurte/environment)
-[![License](https://img.shields.io/packagist/l/cekurte/environment.svg?style=flat-square)](https://packagist.org/packages/cekurte/environment)
+[![Build Status](https://img.shields.io/travis/cekurte/environment/master.svg?style=square)](http://travis-ci.org/cekurte/environment)
+[![Code Climate](https://codeclimate.com/github/jpcercal/environment/badges/gpa.svg)](https://codeclimate.com/github/jpcercal/environment)
+[![Coverage Status](https://coveralls.io/repos/github/cekurte/environment/badge.svg?branch=master)](https://coveralls.io/github/cekurte/environment?branch=master)
+[![Latest Stable Version](https://img.shields.io/packagist/v/cekurte/environment.svg?style=square)](https://packagist.org/packages/cekurte/environment)
+[![License](https://img.shields.io/packagist/l/cekurte/environment.svg?style=square)](https://packagist.org/packages/cekurte/environment)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/69cde579-31fa-4b64-a2de-cbd6db49bb75/mini.png)](https://insight.sensiolabs.com/projects/69cde579-31fa-4b64-a2de-cbd6db49bb75)
 
 - A simple library (with all methods covered by php unit tests) to increase the power of your environment variables, **contribute with this project**!
 
 ## Installation
 
-The package is available on [Packagist](http://packagist.org/packages/cekurte/environment).
-The source files is [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) compatible.
-Autoloading is [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) compatible.
+- The package is available on [Packagist](http://packagist.org/packages/cekurte/environment).
+- The source files is [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) compatible.
+- Autoloading is [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) compatible.
 
 ```shell
 composer require cekurte/environment
