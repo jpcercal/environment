@@ -2,8 +2,9 @@
 
 namespace Cekurte\Environment\Resource;
 
+use Cekurte\Environment\Contract\ResourceInterface;
+use Cekurte\Environment\Exception\ResourceException;
 use Cekurte\Environment\Resource\AbstractResource;
-use Cekurte\Environment\Resource\ResourceInterface;
 
 class BooleanResource extends AbstractResource implements ResourceInterface
 {
@@ -19,7 +20,7 @@ class BooleanResource extends AbstractResource implements ResourceInterface
         );
 
         if (is_null($resource)) {
-            throw new \RuntimeException('The resource type not is a boolean value');
+            throw new ResourceException('The resource type is not a boolean value.');
         }
 
         return $resource;

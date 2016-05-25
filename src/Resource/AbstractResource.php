@@ -2,7 +2,8 @@
 
 namespace Cekurte\Environment\Resource;
 
-use Cekurte\Environment\Resource\ResourceInterface;
+use Cekurte\Environment\Contract\ResourceInterface;
+use Cekurte\Environment\Exception\ResourceException;
 
 abstract class AbstractResource implements ResourceInterface
 {
@@ -24,6 +25,10 @@ abstract class AbstractResource implements ResourceInterface
      */
     public function setResource($resource)
     {
+        if (!is_string($resource)) {
+            throw new ResourceException('The resource value must be a string.');
+        }
+
         $this->resource = trim($resource);
 
         return $this;

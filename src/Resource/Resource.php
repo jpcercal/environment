@@ -3,7 +3,7 @@
 namespace Cekurte\Environment\Resource;
 
 use Cekurte\Environment\Resource\AbstractResource;
-use Cekurte\Environment\Resource\ResourceInterface;
+use Cekurte\Environment\Contract\ResourceInterface;
 
 class Resource extends AbstractResource implements ResourceInterface
 {
