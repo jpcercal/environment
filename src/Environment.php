@@ -37,4 +37,20 @@ class Environment
     {
         return self::getInstance()->get($name, $defaultValue);
     }
+
+    /**
+     * Get all environment variables from $_ENV and $_SERVER.
+     *
+     * @static
+     *
+     * @param  array $filters an array of filters or an empty array
+     *
+     * @throws \Cekurte\Environment\Exception\FilterException
+     *
+     * @return array
+     */
+    public static function getAll(array $filters = [])
+    {
+        return self::getInstance()->getAll($filters);
+    }
 }
