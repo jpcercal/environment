@@ -24,7 +24,7 @@ class NumericResourceTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertTrue($reflection->implementsInterface(
-            '\\Cekurte\\Environment\\Resource\\ResourceInterface'
+            '\\Cekurte\\Environment\\Contract\\ResourceInterface'
         ));
     }
 

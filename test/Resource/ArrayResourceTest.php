@@ -25,7 +25,7 @@ class ArrayResourceTest extends ReflectionTestCase
         );
 
         $this->assertTrue($reflection->implementsInterface(
-            '\\Cekurte\\Environment\\Resource\\ResourceInterface'
+            '\\Cekurte\\Environment\\Contract\\ResourceInterface'
         ));
     }
 
