@@ -30,7 +30,7 @@ class ArrayResourceTest extends ReflectionTestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \Cekurte\Environment\Exception\ResourceException
      */
     public function testProcessRuntimeException()
     {
@@ -75,7 +75,7 @@ class ArrayResourceTest extends ReflectionTestCase
     }
 
     /**
-     * @expectedException        \UnexpectedValueException
+     * @expectedException        \Cekurte\Environment\Exception\ResourceException
      * @expectedExceptionMessage 1: "message" in file on line 0
      */
     public function testHandleError()

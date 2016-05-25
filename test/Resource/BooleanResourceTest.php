@@ -29,7 +29,7 @@ class BooleanResourceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \Cekurte\Environment\Exception\ResourceException
      */
     public function testProcessRuntimeException()
     {
