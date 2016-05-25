@@ -12,6 +12,8 @@ if (!function_exists('Cekurte\Environment\env')) {
      * @param mixed  $defaultValue
      *
      * @return mixed
+     *
+     * @deprecated
      */
     function env($name, $default = null)
     {
