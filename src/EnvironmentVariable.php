@@ -2,6 +2,9 @@
 
 namespace Cekurte\Environment;
 
+use Cekurte\Environment\Contract\FilterInterface;
+use Cekurte\Environment\Exception\Exception;
+use Cekurte\Environment\Exception\FilterException;
 use Cekurte\Environment\Resource\Resource;
 
 class EnvironmentVariable
@@ -27,6 +30,38 @@ class EnvironmentVariable
     }
 
     /**
+     * Get a merge of environment variables $_ENV and $_SERVER.
+     *
+     * @return array
+     */
+    protected function getEnvironmentVariables()
+    {
+        return array_merge($_ENV, $_SERVER);
+    }
+
+    /**
+     * Given the $rawValue this method will convert it to a
+     * value using the correct resource type.
+     *
+     * @param  mixed $rawValue
+     * @param  mixed $defaultValue
+     *
+     * @return mixed
+     */
+    protected function getValue($rawValue, $defaultValue = null)
+    {
+        if ($rawValue === null) {
+            return $defaultValue;
+        }
+
+        try {
+            return (new Resource($rawValue))->process();
+        } catch (Exception $e) {
+            // ...
+        }
+    }
+
+    /**
      * Get value from environment.
      *
      * @param string $key
@@ -38,10 +73,39 @@ class EnvironmentVariable
     {
         $rawValue = $this->getEnvironmentVariable($key);
 
-        if ($rawValue === null) {
-            return $defaultValue;
+        return $this->getValue($rawValue, $defaultValue);
+    }
+
+    /**
+     * Get all environment variables from $_ENV and $_SERVER.
+     *
+     * @param  array $filters an array of filters or an empty array
+     *
+     * @throws \Cekurte\Environment\Exception\FilterException
+     *
+     * @return array
+     */
+    public function getAll(array $filters = [])
+    {
+        $vars = $this->getEnvironmentVariables();
+
+        foreach ($filters as $filter) {
+            if (!$filter instanceof FilterInterface) {
+                throw new FilterException(sprintf(
+                    '%s %s %s',
+                    'The $filters param must be an array',
+                    'and your values must be an instance of',
+                    '\Cekurte\Environment\Contract\FilterInterface'
+                ));
+            }
+
+            $vars = $filter->filter($vars);
         }
 
-        return (new Resource($rawValue))->process();
+        $callback = function ($rawValue) {
+            return $this->getValue($rawValue);
+        };
+
+        return array_map($callback, $vars);
     }
 }

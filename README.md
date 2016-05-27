@@ -45,11 +45,26 @@ $data = Environment::get("APP_DEBUG", true);
 // Using a object...
 $data = (new EnvironmentVariable())->get("YOUR_ENVIRONMENT_KEY", "defaultValue");
 
-// Using a function...
+// Using a function... @deprecated
 $data = env("YOUR_ENVIRONMENT_KEY", "defaultValue");
 
 // Note that if the second parameter is omitted
 // then the return value (if your key not exists) will be null.
+
+// A new way was added to you get all environment variables as an array.
+$data = Environment::getAll();
+
+// You can use a filter to get only the environment variables that you need.
+$data = Environment::getAll([
+    new Cekurte\Environment\Filter\KeyRegexFilter('/PROCESSOR/'),
+    new Cekurte\Environment\Filter\ValueRegexFilter('/6/'),
+]);
+
+// The method above will get all environment variables, where:
+// the environment variable name has the word PROCESSOR AND
+// the environment variable value has the number six.
+
+// And you can develop your own filters, contribute with this project!
 ```
 
 This command will get the value of the environment variable and will convert values to respective php data type.

@@ -3,6 +3,7 @@
 <phpunit colors="true" bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="Cekurte Environment">
+            <directory>./test/Filter</directory>
             <directory>./test/Resource</directory>
             <file phpVersion="5.6" phpVersionOperator=">=">./test/EnvFunctionTest.php</file>
             <file>./test/EnvironmentTest.php</file>

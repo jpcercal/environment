@@ -7,7 +7,7 @@ class ResourceInterfaceTest extends \PHPUnit_Framework_TestCase
     public function testIsInterface()
     {
         $reflection = new \ReflectionClass(
-            '\\Cekurte\\Environment\\Resource\\ResourceInterface'
+            '\\Cekurte\\Environment\\Contract\\ResourceInterface'
         );
 
         $this->assertTrue($reflection->isInterface());
@@ -16,7 +16,7 @@ class ResourceInterfaceTest extends \PHPUnit_Framework_TestCase
     public function testHasMethods()
     {
         $reflection = new \ReflectionClass(
-            '\\Cekurte\\Environment\\Resource\\ResourceInterface'
+            '\\Cekurte\\Environment\\Contract\\ResourceInterface'
         );
 
         $this->assertTrue($reflection->hasMethod('setResource'));

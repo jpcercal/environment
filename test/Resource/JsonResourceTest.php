@@ -24,12 +24,12 @@ class JsonResourceTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertTrue($reflection->implementsInterface(
-            '\\Cekurte\\Environment\\Resource\\ResourceInterface'
+            '\\Cekurte\\Environment\\Contract\\ResourceInterface'
         ));
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \Cekurte\Environment\Exception\ResourceException
      */
     public function testProcessRuntimeException()
     {
@@ -37,7 +37,7 @@ class JsonResourceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \Cekurte\Environment\Exception\ResourceException
      */
     public function testProcessJsonErrorRuntimeException()
     {
