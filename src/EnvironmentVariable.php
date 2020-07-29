@@ -36,7 +36,7 @@ class EnvironmentVariable
      */
     protected function getEnvironmentVariables()
     {
-        return array_merge($_ENV, $_SERVER);
+        return array_merge($_ENV, $_SERVER, getenv());
     }
 
     /**
