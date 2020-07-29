@@ -220,6 +220,58 @@ class EnvironmentTest extends EnvironmentTestCase
         $this->assertTrue(is_array(Environment::getAll()));
     }
 
+    public function testGetAllReadsEnv()
+    {
+        $_ENV['testGetAllReadsEnv'] = 'test';
+        $vars = Environment::getAll();
+        $this->assertTrue(
+            isset($vars['testGetAllReadsEnv'])
+            && $vars['testGetAllReadsEnv'] == 'test'
+        );
+    }
+
+    public function testGetAllReadsServer()
+    {
+        $_SERVER['testGetAllReadsServer'] = 'test';
+        $vars = Environment::getAll();
+        $this->assertTrue(
+            isset($vars['testGetAllReadsServer'])
+            && $vars['testGetAllReadsServer'] == 'test'
+        );
+    }
+
+    public function testGetAllReadsGetEnv()
+    {
+        putenv('testGetAllReadsGetEnv=test');
+        $vars = Environment::getAll();
+        $this->assertTrue(
+            isset($vars['testGetAllReadsGetEnv'])
+            && $vars['testGetAllReadsGetEnv'] == 'test'
+        );
+    }
+
+    public function testGetAllOverwritesGetEnvWithServer()
+    {
+        putenv('testGetAllOverwritesGetEnvWithServer=test');
+        $_SERVER['testGetAllOverwritesGetEnvWithServer'] = 'server';
+        $vars = Environment::getAll();
+        $this->assertTrue(
+            isset($vars['testGetAllOverwritesGetEnvWithServer'])
+            && $vars['testGetAllOverwritesGetEnvWithServer'] == 'server'
+        );
+    }
+
+    public function testGetAllOverwritesServerWithEnv()
+    {
+        $_SERVER['testGetAllOverwritesServerWithEnv'] = 'server';
+        $_ENV['testGetAllOverwritesServerWithEnv'] = 'env';
+        $vars = Environment::getAll();
+        $this->assertTrue(
+            isset($vars['testGetAllOverwritesServerWithEnv'])
+            && $vars['testGetAllOverwritesServerWithEnv'] == 'env'
+        );
+    }
+
     public function testGetAllWithKeyRegexFilter()
     {
         $_ENV['_ENV'] = 'true';
